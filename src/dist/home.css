@@ -19,3 +19,7 @@
 .data-table .data-table-coloumn__unit .ui-cell-data{
     float: right;
 }
+
+.data-table .ui-dialog {
+    font-size: small;
+}
