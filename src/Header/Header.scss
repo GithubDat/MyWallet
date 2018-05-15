@@ -3,6 +3,9 @@
 // This file covers SCSS for all components within the header
 
 #header {
+  p{
+    color: white;
+  }
   #header-content {
     align-items: center;
     background-color: $black;
