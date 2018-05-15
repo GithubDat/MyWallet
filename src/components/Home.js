@@ -186,6 +186,9 @@ class Home extends React.Component {
             }
           }
         `,
+        variables: {
+          userId: userId,
+        },
       })
       .then(resp => {
         for (var i = 0; i < resp.data.expense.length; i++) {
@@ -202,7 +205,6 @@ class Home extends React.Component {
             (expenseValueObj.unit = resp.data.expense[i].unit),
             (expenseValueObj.comment = 'resp.data.expense[i].comment'),
             expenseValue.push(expenseValueObj);
-          console.log('expense', expenseValue);
         }
         this.setState({
           expenses: expenseValue,
@@ -342,7 +344,6 @@ class Home extends React.Component {
     }
     if (value.length > 0) {
       let categoryId = value[0].value;
-      console.log('catId', categoryId);
       let userId = 1;
       this.props.client
         .query({
@@ -362,7 +363,6 @@ class Home extends React.Component {
         })
 
         .then(resp => {
-          console.log('subca', resp.data.subcategory);
           for (var i = 0; i < resp.data.subcategory.length; i++) {
             let subCategoryValueObj = {};
             (subCategoryValueObj.label =
