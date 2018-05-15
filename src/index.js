@@ -12,6 +12,7 @@ import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 import AddToWallet from './components/AddToWallet';
 import ExpenseItem from './components/ExpenseItem';
+import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import './index.css';
 import Header from './Header/Header';
@@ -42,6 +43,7 @@ const render = Component => {
     <Router>
       <ApolloProvider client={client}>
         <Header />
+        <Route exact path="/Dashboard" component={Dashboard} />
         <PropsRoute exact path="/" component={Home} client={client} />
       </ApolloProvider>
     </Router>,

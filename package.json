@@ -10,6 +10,7 @@
     "apollo-cache-inmemory": "^1.1.9",
     "apollo-client": "^2.2.5",
     "apollo-link-http": "^1.5.2",
+    "chart.js": "^2.7.2",
     "classnames": "^2.2.5",
     "create-react-class": "^15.6.3",
     "enzyme": "^3.0.0",
