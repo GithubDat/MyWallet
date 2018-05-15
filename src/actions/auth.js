@@ -6,7 +6,6 @@ import {
   MESSAGE_CREATE,
 } from './actionTypes';
 import User from './service';
-import { createBrowserHistory } from 'history';
 
 const DEFAULT_ERROR_MESSAGE = 'Oops something went wrong!';
 const DEFAULT_SUCCESS_MESSAGE = 'Success';
@@ -32,8 +31,8 @@ export function login({ email, password }, history) {
 export function getMe() {
   return async dispatch => {
     const response = await User.getMe();
-    const { firstName, lastName, email, lastAuditTime, photoUrl } = response;
-    const user = { firstName, lastName, email, photoUrl };
+    const { firstName, lastName, email, role, photoUrl } = response;
+    const user = { firstName, lastName, email, role, photoUrl };
     if (response.error || response.errorMessage) {
       console.log('Token exists, but login failed!');
       return;

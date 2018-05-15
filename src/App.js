@@ -4,18 +4,28 @@ import {
   ApolloClient,
   createBatchingNetworkInterface,
 } from 'react-apollo';
-import {
-  BrowserRouter as Router,
-  Route,
-  PropsRoute,
-  Switch,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import AddToWallet from './components/AddToWallet';
 import LoginPage from './containers/LoginPage';
 import ExpenseItem from './components/ExpenseItem';
 import Home from './components/Home';
 import Header from './Header/Header';
+
+const PropsRoute = ({ component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={routeProps => {
+        return renderMergedProps(component, routeProps, rest);
+      }}
+    />
+  );
+};
+
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return React.createElement(component, finalProps);
+};
 
 class App extends Component {
   render() {
