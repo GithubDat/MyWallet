@@ -21,8 +21,6 @@
     .face-icon {
       border-radius: 50%;
       height: 45px;
-      position: absolute;
-      top: 5px;
       width: 45px;
     }
 
@@ -39,6 +37,13 @@
 
     .md-fake-btn {
       height: 40px;
+    }
+    .date_text {
+      margin-top: 2px;
+      margin-right: 16px;
+    }
+    .username_text{
+      margin-left: 71%;
     }
   }
 }
