@@ -12,21 +12,30 @@ const Header = ({
   quickAddError,
 }) => {
   const loggedInEmail = localStorage.getItem('id_email');
-  return (
-    <div id="header">
-      <div id="header-content">
-        <h5>My Wallet</h5>
-        <p className="username_text">Pavana S N</p>
-        <p className="date_text">5/11/2018</p>
-        <AccountMenu
-          submit={handleToggleProfile}
-          logoutUser={logoutUser}
-          loggedInEmail="Pavana.narasanna@cognizant.com"
-          className="account-menu"
-        />
+  const pathname = window.location.pathname;
+  if (pathname !== '/login') {
+    return (
+      <div id="header">
+        <div id="header-content">
+          <h5>My Wallet</h5>
+          <p className="username_text">Pavana S N</p>
+          <p className="date_text">5/11/2018</p>
+          <AccountMenu
+            submit={handleToggleProfile}
+            logoutUser={logoutUser}
+            loggedInEmail="Pavana.narasanna@cognizant.com"
+            className="account-menu"
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div id="header">
+        <div id="header-content" />
+      </div>
+    );
+  }
 };
 
 Header.propTypes = {
@@ -37,6 +46,7 @@ Header.propTypes = {
     isError: PropTypes.bool,
   }).isRequired,
   logoutUser: PropTypes.func.isRequired,
+  history: PropTypes.object,
 };
 
 export default Header;

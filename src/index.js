@@ -1,3 +1,5 @@
+import createBrowserHistory from 'history/createBrowserHistory';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-client';
@@ -5,17 +7,17 @@ import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import 'primereact/resources/themes/voclain/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'font-awesome/css/font-awesome.css';
 import registerServiceWorker from './registerServiceWorker';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+
 import App from './App';
-import AddToWallet from './components/AddToWallet';
-import ExpenseItem from './components/ExpenseItem';
-import Dashboard from './components/Dashboard';
-import Home from './components/Home';
 import './index.css';
+
 import Header from './Header/Header';
+
+const history = createBrowserHistory();
+const store = configureStore(history);
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: process.env.REACT_APP_SERVER_URL }),
@@ -40,13 +42,13 @@ const PropsRoute = ({ component, ...rest }) => {
 
 const render = Component => {
   ReactDOM.render(
-    <Router>
-      <ApolloProvider client={client}>
-        <Header />
-        <Route exact path="/Dashboard" component={Dashboard} />
-        <PropsRoute exact path="/" component={Home} client={client} />
-      </ApolloProvider>
-    </Router>,
+    <Provider store={store}>
+      <Router>
+        <ApolloProvider client={client}>
+          <Component />
+        </ApolloProvider>
+      </Router>
+    </Provider>,
     document.getElementById('root')
   );
 };
