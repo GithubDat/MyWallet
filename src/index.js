@@ -42,9 +42,7 @@ const render = Component => {
     <Router>
       <ApolloProvider client={client}>
         <Header />
-        <Route exact path="/Expense" component={ExpenseItem} />
-        <Route exact path="/AddToWallet" component={AddToWallet} />
-        <Route exact path="/home" component={Home} />
+        <PropsRoute exact path="/" component={Home} client={client} />
       </ApolloProvider>
     </Router>,
     document.getElementById('root')

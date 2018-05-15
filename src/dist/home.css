@@ -22,4 +22,25 @@
 
 .data-table .ui-dialog {
     font-size: small;
+    position: fixed;
+    top:130px !important;
+    left: 500px !important;
+}
+.data-table .footer{
+    max-width: 11%;
+    height: 30px ;
+}
+.data-table .header
+{
+    margin: 4px 4px 0 0;
+}
+.data-table .column
+{
+    width: 140px; 
+}
+.ui-grid .ui-cell-column{
+    padding: 4px 10px;
+}
+.ui-dialog .ui-dialog-content .dialog-height{
+    height: 310.25px;
 }
