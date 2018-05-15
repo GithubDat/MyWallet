@@ -402,7 +402,7 @@ class Home extends React.Component {
       return (
         <Column
           key={col.field}
-          className={'data-table-coloumn__' + col.field + ' column'}
+          className={'data-table-coloumn__' + col.field}
           field={col.field}
           header={col.header}
           sortable={true}

@@ -23,7 +23,8 @@
 .data-table .ui-dialog {
     font-size: small;
     position: fixed;
-    top:130px !important;
+    width: 25% !important;
+    top:165px !important;
     left: 500px !important;
 }
 .data-table .footer{
