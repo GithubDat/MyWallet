@@ -4,7 +4,13 @@ import {
   ApolloClient,
   createBatchingNetworkInterface,
 } from 'react-apollo';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  PropsRoute,
+  Switch,
+  Link,
+} from 'react-router-dom';
 import AddToWallet from './components/AddToWallet';
 import LoginPage from './containers/LoginPage';
 import ExpenseItem from './components/ExpenseItem';
@@ -20,7 +26,12 @@ class App extends Component {
           <Route exact path="/Expense" component={ExpenseItem} />
           <Route exact path="/AddToWallet" component={AddToWallet} />
           <Route exact path="/login" component={LoginPage} />
-          <PropsRoute exact path="/home" component={Home} client={client} />
+          <PropsRoute
+            exact
+            path="/home"
+            component={Home}
+            client={this.props.client}
+          />
         </Switch>
       </div>
     );
