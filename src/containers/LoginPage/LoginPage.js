@@ -38,7 +38,7 @@ export class LoginPage extends Component {
     const renderForm = this.props.requesting ? (
       <p>Loading</p>
     ) : (
-      <div className="LoginPage__form__wrapper">
+      <div className="loginPage__form__wrapper">
         <LoginForm
           email={this.state.email}
           password={this.state.password}

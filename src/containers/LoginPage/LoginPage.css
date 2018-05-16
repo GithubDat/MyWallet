@@ -1,0 +1,79 @@
+.loginPage__form__wrapper{
+  width: 100%;
+  margin: 8% 0;
+}
+
+.login-form {
+    border-radius: 4px;
+    margin: 0 28%;
+    width: 415px;
+    height: 375px;
+    text-align: center;
+}
+
+.login-form .md-divider{
+  display: none;
+}
+
+.login-form .md-password-btn{
+  background-color: plum;
+}
+
+.login-form .login-form__title {
+        font-family: Roboto;
+        font-size: 56px;
+        line-height: 1.14;
+        text-align: center;
+        color: purple;
+    }
+
+  .login-form .login-form__submit {
+      margin: 64px 0px;
+      height: 40px;
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.33;
+      letter-spacing: 0.7px;
+      text-align: center;
+      color: white;
+      width: 96%;
+      background-color: mediumpurple !important;
+    }
+
+.login-form .md-text-field {
+        width: 70px;
+        height: 16px;
+        font-family: Roboto;
+        font-size: 16px;
+        line-height: 1;
+        text-align: left;
+        color: gray;
+    }
+
+    .login-form .login-form__content {
+        margin-left: 52px;
+        margin-right: 46px;
+        margin-bottom: 18px;
+    }
+
+    .login-form .login-form__input {
+        height: 32px;
+        line-height: 1.15;
+        margin-top: 25px;
+        width: 96%;
+    }
+
+
+    .login-form .login-form__message {
+        color: red;
+    }
+
+
+    .login-form .md-background--primary {
+        background: elf-green !important;
+    }
+
+    .login-form .md-text-field {
+        width: 100%;
+    }

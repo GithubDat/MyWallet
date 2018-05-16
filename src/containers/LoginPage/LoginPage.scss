@@ -1,11 +1,16 @@
-@import "variables.scss";
+@import "../../stylesheets/variables.scss";
+
+.loginPage__form__wrapper{
+  width: 100%;
+  margin: 8% 0;
+}
 
 .login-form {
-    border-radius: 4px;
-    margin: #{$nav-bar-height * 2} auto;
-    width: 425px;
-    height: 375px;
-    text-align: center;
+  border-radius: 4px;
+  margin: 0 28%;
+  width: 415px;
+  height: 375px;
+  text-align: center;
 
     .login-form__container {
         padding: 80px 24px 36px;
@@ -27,7 +32,7 @@
         line-height: 1.33;
         letter-spacing: 0.7px;
         text-align: center;
-        color: $white;
+        background-color: mediumpurple;
         width: 98%;
     }
 
@@ -47,12 +52,6 @@
         margin-bottom: 18px;
     }
 
-    .login-form__buttons {
-        margin-top: 45px;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
     .login-form__input {
         height: 32px;
         line-height: 1.15;
@@ -62,18 +61,6 @@
 
     .login-form__message {
         color: $red;
-    }
-
-    .login-form__forgot_password{
-        width: 280px;
-        height: 18px;
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 500;
-        line-height: 1.38;
-        text-align: center;
-        color: $dark-cyan;
-        margin-top: 15px;
     }
 
     .md-background--primary {
