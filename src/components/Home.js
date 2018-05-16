@@ -1,10 +1,6 @@
 import React from 'react';
-// import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
-// import {removeExpense, addExpense, fetchExpenses} from './actions/index';
 import moment from 'moment';
 import { Link, withRouter } from 'react-router-dom';
-import ExpenseItem from './ExpenseItem';
 import { DataTable } from 'primereact/components/datatable/DataTable';
 import { Column } from 'primereact/components/column/Column';
 import { InputText } from 'primereact/components/inputtext/InputText';
@@ -19,12 +15,77 @@ import { UnsubscriptionError } from 'rxjs';
 import { Query, Mutation, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-export const CATEGORY_QUERY = gql`
-  query getCategory {
-    category {
-      categoryName
-      id
-      userId
+const EXPENSE_MUTATION = gql`
+  mutation addExpense(
+    $subCategoryId: Int!
+    $categoryId: Int!
+    $item: String!
+    $quantity: String!
+    $unit: String!
+    $provider: String!
+    $price: String!
+    $userId: Int!
+  ) {
+    manageExpense(
+      expenseData: {
+        subCategoryId: $subCategoryId
+        categoryId: $categoryId
+        item: $item
+        quantity: $quantity
+        unit: $unit
+        provider: $provider
+        price: $price
+        userId: $userId
+      }
+    ) {
+      expense {
+        category: CATEGORY {
+          categoryName
+        }
+        subcategory: SUBCATEGORY {
+          subCategoryName
+        }
+        quantity
+        item
+        amount: price
+        date: createdAt
+        provider
+        unit
+      }
+    }
+  }
+`;
+
+const CATEGORY_MUTATION = gql`
+  mutation addcategory($categoryName: String!, $userId: Int!) {
+    manageCategory(
+      categoryData: { categoryName: $categoryName, userId: $userId }
+    ) {
+      category {
+        categoryName
+        id
+      }
+    }
+  }
+`;
+
+const SUBCATEGORY_MUTATION = gql`
+  mutation addsubcategory(
+    $subCategoryName: String!
+    $userId: Int!
+    $categoryId: Int!
+  ) {
+    manageSubCategory(
+      subCategoryData: {
+        subCategoryName: $subCategoryName
+        userId: $userId
+        categoryId: $categoryId
+      }
+    ) {
+      subCategory {
+        subCategoryName
+        id
+      }
     }
   }
 `;
@@ -33,134 +94,15 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expenses: [
-        {
-          category: 'Volkswagen',
-          subCategory: 'Volkswagen',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Volkswagen',
-        },
-        {
-          category: 'Audi',
-          subCategory: 'Audi',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Audi',
-        },
-        {
-          category: 'Renault',
-          subCategory: 'Renault',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Renault',
-        },
-        {
-          category: 'BMW',
-          subCategory: 'BMW',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'BMW',
-        },
-        {
-          category: 'Mercedes',
-          subCategory: 'Mercedes',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Mercedes',
-        },
-        {
-          category: 'Volvo',
-          subCategory: 'Volvo',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Volvo',
-        },
-        {
-          category: 'Honda',
-          subCategory: 'Honda',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Honda',
-        },
-        {
-          category: 'Jaguar',
-          subCategory: 'Jaguar',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Jaguar',
-        },
-        {
-          category: 'Ford',
-          subCategory: 'Ford',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Ford',
-        },
-        {
-          category: 'Fait',
-          subCategory: 'Fait',
-          unit: '1',
-          quantity: '10',
-          item: 'White',
-          date: '18/10/2017',
-          comment: ' Good Quality',
-          amount: '$200000',
-          provider: 'Fait',
-        },
-      ],
+      expenses: [],
       multi: true,
       multiSub: true,
       multiValue: [],
       multiValuesub: [],
       categoryValue: 'undefined',
       subCategoryValue: 'Hello',
-      category: [
-        { value: 'R', label: 'Grocery' },
-        { value: 'G', label: 'Clothes' },
-        { value: 'B', label: 'Makeup' },
-      ],
-      subCategory: [
-        { value: 'O', label: 'Oils' },
-        { value: 'V', label: 'Vegetables' },
-        { value: 'S', label: 'Sauces' },
-      ],
+      category: [{ value: 1, label: 'Grocery' }],
+      subCategory: [{ value: 1, label: 'Oils' }],
     };
 
     let categoryValue = [];
@@ -258,15 +200,15 @@ class Home extends React.Component {
     this.newExpense = true;
     this.setState({
       expense: {
-        category: 'Yamaha',
-        subCategory: 'Yamaha',
-        unit: '1',
-        quantity: '10',
-        item: 'White',
-        date: '18/10/2017',
-        comment: ' Good Quality',
-        amount: '$200000',
-        provider: 'Yamaha',
+        category: '',
+        subCategory: '',
+        unit: '',
+        quantity: '',
+        item: '',
+        date: '',
+        comment: '',
+        amount: '100',
+        provider: '',
       },
       displayDialog: true,
       expenseEditFlag: false,
@@ -277,10 +219,43 @@ class Home extends React.Component {
     return this.state.expenses.indexOf(this.state.selectedExpense);
   }
 
-  save() {
+  save(e) {
     let expenses = [...this.state.expenses];
-    if (this.newExpense) expenses.push(this.state.expense);
-    else expenses[this.findSelectedCarIndex()] = this.state.expense;
+    let expenseData = this.newExpense;
+    if (this.newExpense) {
+      this.props.client
+        .mutate({
+          mutation: EXPENSE_MUTATION,
+          variables: {
+            subCategoryId: parseInt(this.state.multiValuesub[0].value),
+            categoryId: 1,
+            item: this.state.expense.item,
+            quantity: this.state.expense.quantity,
+            unit: this.state.expense.unit,
+            provider: this.state.expense.provider,
+            price: this.state.expense.amount,
+            userId: 1,
+          },
+        })
+        .then(resp => {
+          console.log('id', resp.data.manageExpense.expense);
+          let responseExpense = {};
+          (responseExpense.category =
+            resp.data.manageExpense.expense.category.categoryName),
+            (responseExpense.subCategory =
+              resp.data.manageExpense.expense.subcategory.subCategoryName),
+            (responseExpense.unit = resp.data.manageExpense.expense.unit),
+            (responseExpense.quantity =
+              resp.data.manageExpense.expense.quantity),
+            (responseExpense.item = resp.data.manageExpense.expense.item),
+            (responseExpense.date = resp.data.manageExpense.expense.date),
+            (responseExpense.amount = resp.data.manageExpense.expense.amount),
+            (responseExpense.provider =
+              resp.data.manageExpense.expense.provider),
+            expenses.push(responseExpense);
+          console.log(expenses);
+        });
+    } else expenses[this.findSelectedCarIndex()] = this.state.expense;
 
     this.setState({
       expenses: expenses,
@@ -342,7 +317,7 @@ class Home extends React.Component {
     } else {
       this.setState({ value });
     }
-    if (value.length > 0) {
+    if (value.length > 0 && value.label != value.value) {
       let categoryId = value[0].value;
       let userId = 1;
       this.props.client
@@ -378,6 +353,7 @@ class Home extends React.Component {
   }
 
   handleOnChangeSubCategory(value) {
+    console.log('value', value);
     const { multiSub } = this.state;
     let expenseObj = Object.assign({}, this.state.expense);
     if (value.length > 0) {
@@ -390,6 +366,54 @@ class Home extends React.Component {
     }
   }
 
+  handleOnClickCategory(value) {
+    let categorys = [...this.state.category];
+    console.log('value', value);
+    this.props.client
+      .mutate({
+        mutation: CATEGORY_MUTATION,
+        variables: {
+          categoryName: value.value,
+          userId: 1,
+        },
+      })
+      .then(resp => {
+        console.log(resp);
+        let categoryValueObj = {};
+        (categoryValueObj.label =
+          resp.data.manageCategory.category.categoryName),
+          (categoryValueObj.value = resp.data.manageCategory.category.id),
+          categorys.push(categoryValueObj);
+
+        this.setState({ multiValue: categoryValueObj, category: categorys });
+      });
+  }
+  handleOnClickSubCategory(value) {
+    console.log(this.state.multiValue);
+    let subCategorys = [...this.state.subCategory];
+    this.props.client
+      .mutate({
+        mutation: SUBCATEGORY_MUTATION,
+        variables: {
+          subCategoryName: value.value,
+          userId: 1,
+          categoryId: parseInt(this.state.multiValue.value),
+        },
+      })
+      .then(resp => {
+        console.log('resp', resp);
+        let subCategoryValueObj = {};
+        (subCategoryValueObj.label =
+          resp.data.manageSubCategory.subCategory.subCategoryName),
+          (subCategoryValueObj.value =
+            resp.data.manageSubCategory.subCategory.id),
+          subCategorys.push(subCategoryValueObj);
+        this.setState({
+          multiValuesub: subCategoryValueObj,
+          subCategory: subCategorys,
+        });
+      });
+  }
   handleOnChangeComment(e) {
     let expenseObj = Object.assign({}, this.state.expense);
     expenseObj.comment = e.target.value;
@@ -449,26 +473,28 @@ class Home extends React.Component {
     );
     return (
       <div className="data-table">
-        <DataTable
-          value={this.state.expenses}
-          style={{ fontSize: 'small' }}
-          responsive={true}
-          paginator={true}
-          rows={10}
-          sortMode="multiple"
-          header={header}
-          globalFilter={this.state.globalFilter}
-          scrollable={true}
-          footer={footer}
-          selectionMode="single"
-          selection={this.state.selectedExpense}
-          onSelectionChange={e => {
-            this.setState({ selectedExpense: e.data });
-          }}
-          onRowSelect={this.handleOnRowSelect.bind(this)}
-        >
-          {dynamicColumns}
-        </DataTable>
+        {this.state.expenses.length > 0 && (
+          <DataTable
+            value={this.state.expenses}
+            style={{ fontSize: 'small' }}
+            responsive={true}
+            paginator={true}
+            rows={10}
+            sortMode="multiple"
+            header={header}
+            globalFilter={this.state.globalFilter}
+            scrollable={true}
+            footer={footer}
+            selectionMode="single"
+            selection={this.state.selectedExpense}
+            onSelectionChange={e => {
+              this.setState({ selectedExpense: e.data });
+            }}
+            onRowSelect={this.handleOnRowSelect.bind(this)}
+          >
+            {dynamicColumns}
+          </DataTable>
+        )}
         <Dialog
           visible={this.state.displayDialog}
           header={this.state.expenseEditFlag ? 'Edit Expense' : 'Add Expense'}
@@ -504,6 +530,7 @@ class Home extends React.Component {
                   /> */}
                   <div className="section">
                     <Select.Creatable
+                      onNewOptionClick={this.handleOnClickCategory.bind(this)}
                       multi={multi}
                       options={this.state.category}
                       onChange={this.handleOnChange.bind(this)}
@@ -520,7 +547,11 @@ class Home extends React.Component {
                 <div className="ui-grid-col-8 ui-cell-column">
                   <div className="section">
                     <Select.Creatable
+                      onNewOptionClick={this.handleOnClickSubCategory.bind(
+                        this
+                      )}
                       multi={multiSub}
+                      searchable={false}
                       options={this.state.subCategory}
                       onChange={this.handleOnChangeSubCategory.bind(this)}
                       value={

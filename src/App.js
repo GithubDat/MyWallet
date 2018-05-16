@@ -5,6 +5,7 @@ import LoginPage from './containers/LoginPage/LoginPage';
 import ExpenseItem from './components/ExpenseItem';
 import Home from './components/Home';
 import Header from './Header/Header';
+import Dashboard from './components/Dashboard';
 
 const PropsRoute = ({ component, ...rest }) => {
   return (
@@ -28,8 +29,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path="/Expense" component={ExpenseItem} />
-          <Route exact path="/AddToWallet" component={AddToWallet} />
+          <Route exact path="/Dashboard" component={Dashboard} />
           <Route exact path="/login" component={LoginPage} />
           <PropsRoute
             exact

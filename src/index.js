@@ -1,5 +1,4 @@
 import createBrowserHistory from 'history/createBrowserHistory';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-client';
@@ -10,11 +9,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
-
 import 'primereact/resources/themes/voclain/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'font-awesome/css/font-awesome.css';
-
 import App from './App';
 import './index.css';
 
