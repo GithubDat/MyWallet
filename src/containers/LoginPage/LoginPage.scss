@@ -12,6 +12,14 @@
   height: 375px;
   text-align: center;
 
+    .md-divider{
+        display: none;
+    }
+
+    .md-password-btn{
+        background-color: plum;
+    }
+
     .login-form__container {
         padding: 80px 24px 36px;
     }
@@ -21,10 +29,11 @@
         font-size: 56px;
         line-height: 1.14;
         text-align: center;
-        color: $gray;
+        color: purple;
     }
 
     .login-form__submit {
+        margin: 64px 0px;
         height: 40px;
         font-family: Roboto;
         font-size: 15px;
@@ -32,8 +41,9 @@
         line-height: 1.33;
         letter-spacing: 0.7px;
         text-align: center;
-        background-color: mediumpurple;
-        width: 98%;
+        color: white;
+        width: 96%;
+        background-color: mediumpurple !important;
     }
 
     .md-text-field {

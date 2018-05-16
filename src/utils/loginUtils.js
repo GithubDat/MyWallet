@@ -37,5 +37,5 @@ export function getRequestHeader(ignoreJwt) {
 }
 
 export function URL() {
-  return process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
+  return process.env.REACT_APP_SERVER_AUTH_URL || 'http://localhost:5000';
 }
