@@ -5,8 +5,7 @@ import Card from 'react-md/lib/Cards/Card';
 import TextField from 'react-md/lib/TextFields';
 
 import { validatePresence } from '../utils/inputValidations';
-
-// import '../containers/LoginPage/LoginPage.scss';
+import '../containers/LoginPage/LoginPage.css';
 
 const LoginForm = ({ email, password, handleChange, onSubmit }) => {
   const formValid = () => {
@@ -43,10 +42,10 @@ const LoginForm = ({ email, password, handleChange, onSubmit }) => {
               inputClassName="font_size__normal"
             />
 
-            <div className="login-form__buttons">
+            <div className="login-form__button">
               <Button
                 className="login-form__submit"
-                label="Login"
+                label="LOGIN"
                 onClick={onSubmit}
                 raised
                 primary

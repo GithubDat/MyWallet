@@ -11,7 +11,7 @@ const Header = ({
   quickAddError,
 }) => {
   const pathname = window.location.pathname;
-  if (pathname !== '/login') {
+  if (pathname !== '/') {
     return (
       <div id="header">
         <div id="header-content">
