@@ -1,0 +1,86 @@
+@import "variables.scss";
+
+.login-form {
+    border-radius: 4px;
+    margin: #{$nav-bar-height * 2} auto;
+    width: 425px;
+    height: 375px;
+    text-align: center;
+
+    .login-form__container {
+        padding: 80px 24px 36px;
+    }
+
+    .login-form__title {
+        font-family: Roboto;
+        font-size: 56px;
+        line-height: 1.14;
+        text-align: center;
+        color: $gray;
+    }
+
+    .login-form__submit {
+        height: 40px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.33;
+        letter-spacing: 0.7px;
+        text-align: center;
+        color: $white;
+        width: 98%;
+    }
+
+    .md-text-field {
+        width: 70px;
+        height: 16px;
+        font-family: Roboto;
+        font-size: 16px;
+        line-height: 1;
+        text-align: left;
+        color: $gray;
+    }
+
+    .login-form__content {
+        margin-left: 52px;
+        margin-right: 46px;
+        margin-bottom: 18px;
+    }
+
+    .login-form__buttons {
+        margin-top: 45px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .login-form__input {
+        height: 32px;
+        line-height: 1.15;
+        margin-top: 25px;
+        width: 96%;
+    }
+
+    .login-form__message {
+        color: $red;
+    }
+
+    .login-form__forgot_password{
+        width: 280px;
+        height: 18px;
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.38;
+        text-align: center;
+        color: $dark-cyan;
+        margin-top: 15px;
+    }
+
+    .md-background--primary {
+        background: $elf-green !important;
+    }
+
+    .md-text-field {
+        width: 100%;
+    }
+}

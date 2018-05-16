@@ -31,8 +31,8 @@ export function login({ email, password }, history) {
 export function getMe() {
   return async dispatch => {
     const response = await User.getMe();
-    const { firstName, lastName, email, role, photoUrl } = response;
-    const user = { firstName, lastName, email, role, photoUrl };
+    const { firstName, lastName, email_id, role, photoUrl } = response;
+    const user = { firstName, lastName, email_id, role, photoUrl };
     if (response.error || response.errorMessage) {
       console.log('Token exists, but login failed!');
       return;

@@ -5,13 +5,11 @@ import AccountMenu from './AccountMenu';
 
 const Header = ({
   message,
-  authStatus,
   logoutUser,
   handleToggleProfile,
   quickAddMessage,
   quickAddError,
 }) => {
-  const loggedInEmail = localStorage.getItem('id_email');
   const pathname = window.location.pathname;
   if (pathname !== '/login') {
     return (
@@ -40,11 +38,6 @@ const Header = ({
 
 Header.propTypes = {
   message: PropTypes.string,
-  authStatus: PropTypes.shape({
-    isAuthenticated: PropTypes.bool,
-    passwordSetMessage: PropTypes.string,
-    isError: PropTypes.bool,
-  }).isRequired,
   logoutUser: PropTypes.func.isRequired,
   history: PropTypes.object,
 };

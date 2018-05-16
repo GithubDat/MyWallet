@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth';
-// import { Loading } from '../components/Loading/Loading';
-import LoginForm from '../components/LoginForm';
+import { login } from '../../actions/auth';
+import LoginForm from '../../components/LoginForm';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+
+import './LoginPage.scss';
 
 export class LoginPage extends Component {
   constructor(props) {

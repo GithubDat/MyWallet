@@ -6,15 +6,17 @@ import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 
+import 'primereact/resources/themes/voclain/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'font-awesome/css/font-awesome.css';
+
 import App from './App';
 import './index.css';
-
-import Header from './Header/Header';
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -29,7 +31,7 @@ const render = Component => {
     <Provider store={store}>
       <Router>
         <ApolloProvider client={client}>
-          <Component />
+          <Component client={client} />
         </ApolloProvider>
       </Router>
     </Provider>,

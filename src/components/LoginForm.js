@@ -6,7 +6,7 @@ import TextField from 'react-md/lib/TextFields';
 
 import { validatePresence } from '../utils/inputValidations';
 
-// import '../stylesheets/LoginForm.scss';
+// import '../containers/LoginPage/LoginPage.scss';
 
 const LoginForm = ({ email, password, handleChange, onSubmit }) => {
   const formValid = () => {
@@ -14,7 +14,7 @@ const LoginForm = ({ email, password, handleChange, onSubmit }) => {
   };
 
   const renderLoginText = () => {
-    return 'User Login';
+    return 'My Wallet';
   };
 
   return (
@@ -22,36 +22,38 @@ const LoginForm = ({ email, password, handleChange, onSubmit }) => {
       <form className="login-form__container" onSubmit={onSubmit}>
         <h2 className="login-form__title">{renderLoginText()}</h2>
         <div className="login-form__content">
-          <TextField
-            id="email"
-            onChange={value => handleChange('email', value)}
-            placeholder="Username"
-            value={email}
-            required
-            className="md-cell md-cell--bottom login-form__input"
-            inputClassName="font_size__normal"
-          />
-          <TextField
-            id="password"
-            onChange={value => handleChange('password', value)}
-            placeholder="Password"
-            type="password"
-            value={password}
-            required
-            className="md-cell md-cell--bottom login-form__input"
-            inputClassName="font_size__normal"
-          />
-
-          <div className="login-form__buttons">
-            <Button
-              className="login-form__submit"
-              label="Login"
-              onClick={onSubmit}
-              raised
-              primary
-              type="submit"
+          <section id="content">
+            <TextField
+              id="email"
+              onChange={value => handleChange('email', value)}
+              placeholder="Username"
+              value={email}
+              required
+              className="md-cell md-cell--bottom login-form__input"
+              inputClassName="font_size__normal"
             />
-          </div>
+            <TextField
+              id="password"
+              onChange={value => handleChange('password', value)}
+              placeholder="Password"
+              type="password"
+              value={password}
+              required
+              className="md-cell md-cell--bottom login-form__input"
+              inputClassName="font_size__normal"
+            />
+
+            <div className="login-form__buttons">
+              <Button
+                className="login-form__submit"
+                label="Login"
+                onClick={onSubmit}
+                raised
+                primary
+                type="submit"
+              />
+            </div>
+          </section>
         </div>
       </form>
     </Card>
