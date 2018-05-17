@@ -32,9 +32,10 @@
 #header #header-content .date_text
 {
   margin-top: 2px;
-  margin-right: 16px;
+  margin-right: -78%;
 }
 #header #header-content .username_text
 {
-  margin-left: 71%;
+  margin-left: 39%;
+  position: absolute;
 }

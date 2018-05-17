@@ -143,7 +143,9 @@ class Home extends React.Component {
             (expenseValueObj.item = resp.data.expense[i].item),
             (expenseValueObj.quantity = resp.data.expense[i].quantity),
             (expenseValueObj.amount = resp.data.expense[i].amount),
-            (expenseValueObj.date = resp.data.expense[i].date),
+            (expenseValueObj.date = moment(resp.data.expense[i].date).format(
+              'DD/MM/YYYY'
+            )),
             (expenseValueObj.provider = resp.data.expense[i].provider),
             (expenseValueObj.unit = resp.data.expense[i].unit),
             expenseValue.push(expenseValueObj);
