@@ -247,7 +247,9 @@ class Home extends React.Component {
             (responseExpense.quantity =
               resp.data.manageExpense.expense.quantity),
             (responseExpense.item = resp.data.manageExpense.expense.item),
-            (responseExpense.date = resp.data.manageExpense.expense.date),
+            (responseExpense.date = moment(
+              resp.data.manageExpense.expense.date
+            ).format('DD/MM/YYYY')),
             (responseExpense.amount = resp.data.manageExpense.expense.amount),
             (responseExpense.provider =
               resp.data.manageExpense.expense.provider),
