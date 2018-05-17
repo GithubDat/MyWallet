@@ -45,6 +45,7 @@ const LoginForm = ({ email, password, handleChange, onSubmit }) => {
             <div className="login-form__button">
               <Button
                 className="login-form__submit"
+                disabled={!formValid()}
                 label="LOGIN"
                 onClick={onSubmit}
                 raised

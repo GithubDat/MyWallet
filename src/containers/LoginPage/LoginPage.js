@@ -4,7 +4,8 @@ import { login } from '../../actions/auth';
 import LoginForm from '../../components/LoginForm';
 import PropTypes from 'prop-types';
 
-import './LoginPage.scss';
+import backgroundImg from '../../stylesheets/images/wallet-icon.png';
+import './LoginPage.css';
 
 export class LoginPage extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ export class LoginPage extends Component {
       <p>Loading</p>
     ) : (
       <div className="loginPage__form__wrapper">
+        <img className="wallet_background" src={backgroundImg} alt="" />
         <LoginForm
           email={this.state.email}
           password={this.state.password}

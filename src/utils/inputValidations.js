@@ -8,11 +8,3 @@ export function validatePresence(value) {
     return value.toString().length > 0;
   }
 }
-
-export function validPositiveNumber(value) {
-  if (value !== '' && value !== undefined) {
-    return value.toString().match(/^\d+$/) && parseInt(value, 10) > 0;
-  } else {
-    return false;
-  }
-}

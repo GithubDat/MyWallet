@@ -15,6 +15,11 @@ const Header = ({
     return (
       <div id="header">
         <div id="header-content">
+          <img
+            className="wallet_icon"
+            src="../stylesheets/images/wallet-icon.png"
+            alt="logo"
+          />
           <h5>My Wallet</h5>
           <p className="username_text">Pavana S N</p>
           <p className="date_text">5/11/2018</p>
@@ -28,11 +33,7 @@ const Header = ({
       </div>
     );
   } else {
-    return (
-      <div id="header">
-        <div id="header-content" />
-      </div>
-    );
+    return <div />;
   }
 };
 

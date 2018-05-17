@@ -3,12 +3,27 @@
   margin: 8% 0;
 }
 
+.loginPage__form__wrapper .wallet_background{
+  min-height: 45%;	
+  width: 50%;
+  height: auto;
+  position: fixed;
+  top: 10%;
+  left: 0;
+}
+
 .login-form {
     border-radius: 4px;
-    margin: 0 28%;
+    margin: 0 52%;
     width: 415px;
     height: 375px;
     text-align: center;
+}
+
+.login-form .login-form__container {
+  height: 98%;
+  border-radius: 20px;
+  box-shadow: 2px 2px 106px 2px rgba(0, 0, 0, 0.1) inset;
 }
 
 .login-form .md-divider{
@@ -20,11 +35,13 @@
 }
 
 .login-form .login-form__title {
-        font-family: Roboto;
-        font-size: 56px;
-        line-height: 1.14;
-        text-align: center;
-        color: purple;
+      padding-top: 5%;
+      padding-right: 4%;
+      font-family: Roboto;
+      font-size: 56px;
+      line-height: 1.14;
+      text-align: center;
+      color: purple;
     }
 
   .login-form .login-form__submit {
@@ -41,6 +58,9 @@
       background-color: mediumpurple !important;
     }
 
+  .login-form .login-form__submit .md-btn--raised-disabled{
+      background-color: gray;
+  }
 .login-form .md-text-field {
         width: 70px;
         height: 16px;
@@ -71,7 +91,7 @@
 
 
     .login-form .md-background--primary {
-        background: elf-green !important;
+        background: mediumpurple !important;
     }
 
     .login-form .md-text-field {
