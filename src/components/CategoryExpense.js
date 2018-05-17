@@ -37,10 +37,10 @@ class CategoryExpense extends React.Component {
     let lable = [];
     let dataValue = [];
     let backgroundColor = [];
-    result.forEach(async a => {
+    result.forEach(a => {
       lable.push(a.SubCategory);
       dataValue.push(a.price);
-      let color = await this.getRandomColor();
+      let color = this.getRandomColor();
       backgroundColor.push(color);
     }, Object.create(null));
 
@@ -58,12 +58,38 @@ class CategoryExpense extends React.Component {
     const options = {
       title: {
         display: true,
-        text: 'Monthly Category Expense',
+        text: 'Monthly Breakup',
         fontSize: 16,
       },
       legend: {
-        display: false,
-        position: 'bottom',
+        display: true,
+        position: 'right',
+      },
+      animation: {
+        duration: 1,
+        onComplete: function() {
+          var chartInstance = this.chart,
+            ctx = chartInstance.ctx;
+          ctx.textAlign = 'center';
+          ctx.fillStyle = 'red';
+          ctx.font = '20px Arial';
+
+          this.data.datasets.forEach(function(dataset, i) {
+            var meta = chartInstance.controller.getDatasetMeta(i);
+            meta.data.forEach(function(bar, index) {
+              var data = dataset.data[index];
+              var mid_radius =
+                bar._model.innerRadius +
+                (bar._model.outerRadius - bar._model.innerRadius) / 2;
+              var start_angle = bar._model.startAngle;
+              var end_angle = bar._model.endAngle;
+              var mid_angle = start_angle + (end_angle - start_angle) / 2;
+              var x = mid_radius * Math.cos(mid_angle);
+              var y = mid_radius * Math.sin(mid_angle);
+              ctx.fillText(data, bar._model.x + x, bar._model.y + y);
+            });
+          });
+        },
       },
     };
 
