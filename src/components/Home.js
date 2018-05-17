@@ -14,6 +14,7 @@ import '../stylesheets/_select-feild.css';
 import { UnsubscriptionError } from 'rxjs';
 import { Query, Mutation, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Dashboard from './Dashboard';
 
 const EXPENSE_MUTATION = gql`
   mutation addExpense(
@@ -101,8 +102,8 @@ class Home extends React.Component {
       multiValuesub: [],
       categoryValue: 'undefined',
       subCategoryValue: 'Hello',
-      category: [{ value: 1, label: 'Grocery' }],
-      subCategory: [{ value: 1, label: 'Oils' }],
+      category: [],
+      subCategory: [],
     };
 
     let categoryValue = [];
@@ -145,7 +146,6 @@ class Home extends React.Component {
             (expenseValueObj.date = resp.data.expense[i].date),
             (expenseValueObj.provider = resp.data.expense[i].provider),
             (expenseValueObj.unit = resp.data.expense[i].unit),
-            (expenseValueObj.comment = 'resp.data.expense[i].comment'),
             expenseValue.push(expenseValueObj);
         }
         this.setState({
@@ -189,7 +189,6 @@ class Home extends React.Component {
       { field: 'amount', header: 'Amount' },
       { field: 'unit', header: 'Unit' },
       { field: 'provider', header: 'Provider' },
-      // { field: 'comment', header: 'Comment' },
     ];
   }
   removeExpense(key) {
@@ -206,8 +205,7 @@ class Home extends React.Component {
         quantity: '',
         item: '',
         date: '',
-        comment: '',
-        amount: '100',
+        amount: '',
         provider: '',
       },
       displayDialog: true,
@@ -252,16 +250,23 @@ class Home extends React.Component {
             (responseExpense.provider =
               resp.data.manageExpense.expense.provider),
             expenses.push(responseExpense);
-          console.log(expenses);
-        });
-    } else expenses[this.findSelectedCarIndex()] = this.state.expense;
 
-    this.setState({
-      expenses: expenses,
-      selectedExpense: null,
-      expense: null,
-      displayDialog: false,
-    });
+          this.setState({
+            expenses: expenses,
+            selectedExpense: null,
+            expense: null,
+            displayDialog: false,
+          });
+        });
+    } else {
+      expenses[this.findSelectedCarIndex()] = this.state.expense;
+      this.setState({
+        expenses: expenses,
+        selectedExpense: null,
+        expense: null,
+        displayDialog: false,
+      });
+    }
   }
 
   handleOnRowSelect(e) {
@@ -352,7 +357,6 @@ class Home extends React.Component {
   }
 
   handleOnChangeSubCategory(value) {
-    console.log('value', value);
     const { multiSub } = this.state;
     let expenseObj = Object.assign({}, this.state.expense);
     if (value.length > 0) {
@@ -387,7 +391,6 @@ class Home extends React.Component {
       });
   }
   handleOnClickSubCategory(value) {
-    console.log(this.state.multiValue);
     let subCategorys = [...this.state.subCategory];
     this.props.client
       .mutate({
@@ -494,6 +497,7 @@ class Home extends React.Component {
             {dynamicColumns}
           </DataTable>
         )}
+        {this.state.expenses.length > 0 && <Dashboard />}
         <Dialog
           visible={this.state.displayDialog}
           header={this.state.expenseEditFlag ? 'Edit Expense' : 'Add Expense'}
@@ -522,11 +526,6 @@ class Home extends React.Component {
                   <label htmlFor="category">Category</label>
                 </div>
                 <div className="ui-grid-col-8 ui-cell-column">
-                  {/* <SelectField placeholder="Category" 
-                    values={this.state.category}
-                    value={this.state.expense.category}
-                    style={{ width: '100%' }}
-                  /> */}
                   <div className="section">
                     <Select.Creatable
                       onNewOptionClick={this.handleOnClickCategory.bind(this)}
@@ -602,21 +601,20 @@ class Home extends React.Component {
                   />
                 </div>
               </div>
-              {/* <div className="ui-grid-row">
+              <div className="ui-grid-row">
                 <div className="ui-grid-col-4 ui-cell-column">
-                  <label htmlFor="comment">Comment</label>
+                  <label htmlFor="amount">Amount</label>
                 </div>
                 <div className="ui-grid-col-8 ui-cell-column">
-                  <InputTextarea
-                    id="comment"
-                    rows={5}
-                    cols={30}
-                    autoResize={true}
-                    value={this.state.expense.comment}
-                    onChange={(e) => this.handleOnChangeComment(e)}
+                  <InputText
+                    id="amount"
+                    value={this.state.expense.amount}
+                    onChange={e => {
+                      this.updateProperty('amount', e.target.value);
+                    }}
                   />
                 </div>
-              </div> */}
+              </div>
             </div>
           )}
         </Dialog>

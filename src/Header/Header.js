@@ -17,7 +17,7 @@ const Header = ({
         <div id="header-content">
           <h5>My Wallet</h5>
           <p className="username_text">Pavana S N</p>
-          <p className="date_text">5/11/2018</p>
+          <p className="date_text">5/18/2018</p>
           <AccountMenu
             submit={handleToggleProfile}
             logoutUser={logoutUser}
