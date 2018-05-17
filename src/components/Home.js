@@ -228,7 +228,7 @@ class Home extends React.Component {
           mutation: EXPENSE_MUTATION,
           variables: {
             subCategoryId: parseInt(this.state.multiValuesub[0].value),
-            categoryId: 1,
+            categoryId: parseInt(this.state.multiValue[0].value),
             item: this.state.expense.item,
             quantity: this.state.expense.quantity,
             unit: this.state.expense.unit,
@@ -238,7 +238,6 @@ class Home extends React.Component {
           },
         })
         .then(resp => {
-          console.log('id', resp.data.manageExpense.expense);
           let responseExpense = {};
           (responseExpense.category =
             resp.data.manageExpense.expense.category.categoryName),
@@ -317,7 +316,7 @@ class Home extends React.Component {
     } else {
       this.setState({ value });
     }
-    if (value.length > 0 && value.label != value.value) {
+    if (value.length > 0) {
       let categoryId = value[0].value;
       let userId = 1;
       this.props.client
@@ -368,7 +367,6 @@ class Home extends React.Component {
 
   handleOnClickCategory(value) {
     let categorys = [...this.state.category];
-    console.log('value', value);
     this.props.client
       .mutate({
         mutation: CATEGORY_MUTATION,
@@ -378,14 +376,14 @@ class Home extends React.Component {
         },
       })
       .then(resp => {
-        console.log(resp);
+        let categoryvalue = [];
         let categoryValueObj = {};
         (categoryValueObj.label =
           resp.data.manageCategory.category.categoryName),
           (categoryValueObj.value = resp.data.manageCategory.category.id),
           categorys.push(categoryValueObj);
-
-        this.setState({ multiValue: categoryValueObj, category: categorys });
+        categoryvalue.push(categoryValueObj);
+        this.setState({ multiValue: categoryvalue, category: categorys });
       });
   }
   handleOnClickSubCategory(value) {
@@ -397,19 +395,20 @@ class Home extends React.Component {
         variables: {
           subCategoryName: value.value,
           userId: 1,
-          categoryId: parseInt(this.state.multiValue.value),
+          categoryId: parseInt(this.state.multiValue[0].value),
         },
       })
       .then(resp => {
-        console.log('resp', resp);
+        let subcategoryValue = [];
         let subCategoryValueObj = {};
         (subCategoryValueObj.label =
           resp.data.manageSubCategory.subCategory.subCategoryName),
           (subCategoryValueObj.value =
             resp.data.manageSubCategory.subCategory.id),
           subCategorys.push(subCategoryValueObj);
+        subcategoryValue.push(subCategoryValueObj);
         this.setState({
-          multiValuesub: subCategoryValueObj,
+          multiValuesub: subcategoryValue,
           subCategory: subCategorys,
         });
       });
@@ -551,7 +550,6 @@ class Home extends React.Component {
                         this
                       )}
                       multi={multiSub}
-                      searchable={false}
                       options={this.state.subCategory}
                       onChange={this.handleOnChangeSubCategory.bind(this)}
                       value={
