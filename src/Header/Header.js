@@ -26,7 +26,7 @@ const Header = ({
           <AccountMenu
             submit={handleToggleProfile}
             logoutUser={logoutUser}
-            loggedInEmail="Pavana.narasanna@cognizant.com"
+            loggedInEmail="Pavana.Narasanna@cognizant.com"
             className="account-menu"
           />
         </div>
